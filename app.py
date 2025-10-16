@@ -1,7 +1,7 @@
 from openai import OpenAI
 import streamlit as st
 
-
+client = OpenAI()
 #auth
 OpenAI.api_key = st.secrets['api_key']
 
@@ -13,7 +13,7 @@ st.header("Getting you deliciously fed!")
 instructions = st.text_area(
     "Tell me what you want to eat and I will tell you:Specify Breakfast,Lunch or Dinner"
 )
-client = OpenAI()
+
 if len(instructions)<1000:
     if st.button("Show Options"):
         client = OpenAI()
