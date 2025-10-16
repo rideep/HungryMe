@@ -1,9 +1,8 @@
 from openai import OpenAI
 import streamlit as st
 
-client = OpenAI()
 #auth
-OpenAI.api_key = st.secrets['api_key']
+client = OpenAI(api_key=st.secrets["api_key"])
 
 #Title
 st.title("HungryMe")
@@ -16,13 +15,11 @@ instructions = st.text_area(
 
 if len(instructions)<1000:
     if st.button("Show Options"):
-        client = OpenAI()
-        prompt = input("What do you want eat? Specify Breakfast,Lunch,Dinner")
         response = client.chat.completions.create(
             model ="gpt-4o-mini",
             messages=[
                 {"role":"system","content":"You are a personal chef who gives delicious food suggestions:"+prompt},
-                {"role":"user","content":prompt}
+                {"role":"user","content":instructions}
                 
             ],
             temperature=0,
@@ -30,5 +27,7 @@ if len(instructions)<1000:
             stop = None
         )
         message= response.choices[0].message.content
+        st.subheader("Here’s what I suggest:")
+        st.write(message)
     else:
-        print("input too large!write less than 1000 words and try again!")
+        st.warning("input too large!write less than 1000 words and try again!")
