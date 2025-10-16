@@ -18,7 +18,7 @@ if len(instructions)<1000:
         response = client.chat.completions.create(
             model ="gpt-4o-mini",
             messages=[
-                {"role":"system","content":"You are a personal chef who gives delicious food suggestions:"+prompt},
+                {"role":"system","content":"You are a personal chef who gives delicious food suggestions:"},
                 {"role":"user","content":instructions}
                 
             ],
